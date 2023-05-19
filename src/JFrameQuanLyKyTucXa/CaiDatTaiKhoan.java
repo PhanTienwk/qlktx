@@ -421,9 +421,9 @@ public class CaiDatTaiKhoan extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Định dạng gmail không đúng. Vui lòng nhập lại");
         } else if (!upmatkhau.equals(upnhaplaimatkhau)) {
             JOptionPane.showMessageDialog(this, "Mật khẩu nhập lại không trùng với mật khẩu. Vui lòng nhập lại!");
-        } else if (kiemtratendn) {
-            int test = JOptionPane.showConfirmDialog(null, "Bạn chắc có muốn thay đổi mật khẩu hay không !", "Thông báo", JOptionPane.YES_NO_OPTION);
-            if (test == JOptionPane.YES_OPTION) {
+        } else {
+            int test1 = JOptionPane.showConfirmDialog(null, "Bạn chắc có muốn thay đổi mật khẩu hay không !", "Thông báo", JOptionPane.YES_NO_OPTION);
+            if (test1 == JOptionPane.YES_OPTION) {
                 XacNhanTaiKhoan();
                 DoiLaiMatKhau();
                 if (kiemtraemail) {
@@ -434,7 +434,7 @@ public class CaiDatTaiKhoan extends javax.swing.JPanel {
                     DoiLaiTenDNNV();
 
                 }
-            } else if (test == JOptionPane.NO_OPTION) {
+            } else if (test1 == JOptionPane.NO_OPTION) {
                 JOptionPane.showMessageDialog(this, "Bạn đã hủy thay đổi thành công");
             }
         }
@@ -510,7 +510,7 @@ public class CaiDatTaiKhoan extends javax.swing.JPanel {
 
                 row = ps1.executeUpdate();
                 if (row > 0) {
-                    JOptionPane.showMessageDialog(this, "Thêm Tài khoản thành công");
+                    JOptionPane.showMessageDialog(this, "Cập nhật Tài khoản thành công");
                 } else {
                     JOptionPane.showMessageDialog(this, "Nhap ma chua dung");
                 }

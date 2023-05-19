@@ -78,6 +78,7 @@ public class Main_NV extends javax.swing.JFrame {
         jPanelKhoanPhi = new JFrameQuanLyKyTucXa.LuongNV();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

@@ -333,7 +333,7 @@ public class Login extends javax.swing.JFrame {
                         main.setVisible(true);
                         main.setTenDangNhap(un);
                         main.setnameuser(un);
-                    } else if (rs.getString("phanQuyen").equals("Sinh viên")) {
+                    } else if (rs.getString("phanQuyen").equals("Sinh Viên")) {
                         dispose();
                         Main_USER main = new Main_USER();
                         main.setVisible(true);

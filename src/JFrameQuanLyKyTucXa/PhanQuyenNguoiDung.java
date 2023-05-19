@@ -411,7 +411,7 @@ public class PhanQuyenNguoiDung extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(ScrollPaneSV, javax.swing.GroupLayout.PREFERRED_SIZE, 975, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,9 +420,9 @@ public class PhanQuyenNguoiDung extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(ScrollPaneSV, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(26, 26, 26)
+                .addComponent(ScrollPaneSV, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63))
         );
 
         add(jPanel2, "card3");
@@ -451,6 +451,8 @@ public class PhanQuyenNguoiDung extends javax.swing.JPanel {
         // TODO add your handling code here:        
         UpdatePhanQuyen(selectedEmail);
         this.AddComboBoxDelete();
+        AddComboBox();
+        AddComboBoxDelete();
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void ComboBoxAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComboBoxAddMouseClicked
@@ -489,7 +491,9 @@ public class PhanQuyenNguoiDung extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Không xóa thành công. Phải có ít nhất 1 Quản Lý");
         } else {
             XoaPhanQuyen(selectedEmailDelete);
+            updateChucVu(selectedEmailDelete);
             this.AddComboBoxDelete();
+            this.AddComboBox();
         }
     }//GEN-LAST:event_jButton3MouseClicked
 
@@ -621,15 +625,13 @@ public class PhanQuyenNguoiDung extends javax.swing.JPanel {
 
     void AddComboBox() {
         Connection conn = KetNoiSQL.getConnection();
-        String sql = "select * from thongtintaikhoan";
+        String sql = "select * from thongtintaikhoan where phanQuyen='Nhân Viên'";
         ComboBoxAdd.removeAllItems();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                if (!rs.getString("phanQuyen").equals("Sinh Viên")) {
-                    this.ComboBoxAdd.addItem(rs.getString("email"));
-                }
+                this.ComboBoxAdd.addItem(rs.getString("email"));
             }
             conn.close();
 
@@ -726,7 +728,7 @@ public class PhanQuyenNguoiDung extends javax.swing.JPanel {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1, "USER");
+            ps.setString(1, "Nhân Viên");
             ps.setString(2, text);
 
             row = ps.executeUpdate();
@@ -751,5 +753,21 @@ public class PhanQuyenNguoiDung extends javax.swing.JPanel {
         txtSearch.addOption(new SearchOption("tên đăng nhập", new ImageIcon(getClass().getResource("/img/user.png"))));
         txtSearch.addOption(new SearchOption("email", new ImageIcon(getClass().getResource("/img/email.png"))));
         txtSearch.addOption(new SearchOption("phân quyền", new ImageIcon(getClass().getResource("/img/pencil.png"))));
+    }
+    
+    void updateChucVu(String text){
+        Connection conn = KetNoiSQL.getConnection();
+        String sql = "update thongtinnhanvien set chucVu=? where email=?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, "Nhân Viên");
+            ps.setString(2, text);
+
+            ps.executeUpdate();
+            conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }
